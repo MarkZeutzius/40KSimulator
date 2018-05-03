@@ -1,0 +1,648 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EldarCraftworld>
+
+	<unit unitName="Guardian Defenders">
+		<model modelName="Guardian" minNum="10" maxNum="20">
+			<move>7</move>
+			<ws>3</ws>
+			<bs>3</bs>
+			<strength>3</strength>
+			<toughness>3</toughness>
+			<wounds>1</wounds>
+			<attacks>1</attacks>
+			<leadership>7</leadership>
+			<armorSave>5</armorSave>
+			<pointsPerModel>8</pointsPerModel>
+			<equippedWeapon weaponName="Shuriken Catapult"></equippedWeapon>
+			<equippedWeapon weaponName="Plasma Grenade"></equippedWeapon>
+		</model>
+		<model modelName="Heavy Weapon Platform" ratio="0.1">
+			<move>7</move>
+			<ws>6</ws>
+			<bs>3</bs>
+			<strength>3</strength>
+			<toughness>3</toughness>
+			<wounds>2</wounds>
+			<attacks>1</attacks>
+			<leadership>7</leadership>
+			<armorSave>3</armorSave>
+			<pointsPerModel>5</pointsPerModel>
+			<equippedWeapon weaponName="Shuriken Cannon" replacementWeapons="Aeldari Missile Launcher,Bright Lance,Scatter Laser,Starcannon"></equippedWeapon>
+		</model>
+	</unit>
+
+	<unit unitName="Guardian Defenders">
+		<model modelName="Guardian" minNum="8" maxNum="24">
+			<move>7</move>
+			<ws>3</ws>
+			<bs>3</bs>
+			<strength>3</strength>
+			<toughness>3</toughness>
+			<wounds>1</wounds>
+			<attacks>1</attacks>
+			<leadership>7</leadership>
+			<armorSave>5</armorSave>
+			<pointsPerModel>8</pointsPerModel>
+			<equippedWeapon weaponName="Shuriken Pistol" replacementWeapons="Fusion Gun,Flamer" alsoReplaces"Aeldari Blade"></equippedWeapon>
+			<equippedWeapon weaponName="Aeldari Blade"></equippedWeapon>
+			<equippedWeapon weaponName="Plasma Grenade"></equippedWeapon>
+		</model>
+	</unit>
+	<unit unitName="Dire Avengers">
+		<model modelName="Dire Avenger" minNum="5" maxNum="10">
+			<move>7</move>
+			<ws>3</ws>
+			<bs>3</bs>
+			<strength>3</strength>
+			<toughness>3</toughness>
+			<wounds>1</wounds>
+			<attacks>1</attacks>
+			<leadership>8</leadership>
+			<armorSave>4</armorSave>
+			<pointsPerModel>8</pointsPerModel>
+			<equippedWeapon weaponName="Avenger Shuriken Catapult"></equippedWeapon>
+			<equippedWeapon weaponName="Plasma Grenade"></equippedWeapon>
+		</model>
+		<model modelName="Dire Avenger Exarch" minNum="0" maxNum="1" replaces="Dire Avenger">
+			<move>7</move>
+			<ws>3</ws>
+			<bs>3</bs>
+			<strength>3</strength>
+			<toughness>3</toughness>
+			<wounds>2</wounds>
+			<attacks>2</attacks>
+			<leadership>8</leadership>
+			<armorSave>4</armorSave>
+			<pointsPerModel>8</pointsPerModel>
+			<equippedWeapon weaponName="Avenger Shuriken Catapult" replacementWeapons="Twin Avenger Shuriken Catapult"></equippedWeapon>
+			<equippedWeapon weaponName="Plasma Grenade"></equippedWeapon>
+		</model>
+	</unit>
+
+	<unit unitName="Rangers">
+		<model modelName="Ranger" minNum="5" maxNum="10">
+			<move>7</move>
+			<ws>3</ws>
+			<bs>3</bs>
+			<strength>3</strength>
+			<toughness>3</toughness>
+			<wounds>1</wounds>
+			<attacks>1</attacks>
+			<leadership>7</leadership>
+			<armorSave>5</armorSave>
+			<pointsPerModel>8</pointsPerModel>
+			<equippedWeapon weaponName="Ranger Long Rifle"></equippedWeapon>
+			<equippedWeapon weaponName="Shuriken Pistol"></equippedWeapon>
+			<equippedWarGear wargearName="Cameleoline Cloak"></equippedWarGear>
+		</model>
+	</unit>
+
+
+	<weapon weaponName="Aeldari Missile Launcher" mode="Sunburst">
+		<range>48</range>
+		<type>heavy</type>
+		<shots>d6</shots>
+		<strength>4</strength>
+		<armorPenetration>1</armorPenetration>
+		<damage>1</damage>
+		<pointsPerWeapon>25</pointsPerWeapon>
+		<mode weaponName="Aeldari Missile Launcher" mode="Starshot">
+			<range>48</range>
+			<type>heavy</type>
+			<shots>1</shots>
+			<strength>8</strength>
+			<armorPenetration>2</armorPenetration>
+			<damage>d6</damage>
+			<pointsPerWeapon>0</pointsPerWeapon>
+		</mode>
+	</weapon>
+
+	<weapon weaponName="Avenger Shuriken Catapult" specialOn="wound6p" specialDoes="ap3">
+		<range>18</range>
+		<type>assault</type>
+		<shots>2</shots>
+		<strength>4</strength>
+		<armorPenetration>0</armorPenetration>
+		<damage>1</damage>
+		<pointsPerWeapon>4</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Bright Lance">
+		<range>36</range>
+		<type>heavy</type>
+		<shots>1</shots>
+		<strength>8</strength>
+		<armorPenetration>4</armorPenetration>
+		<damage>d6</damage>
+		<pointsPerWeapon>20</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Death Spinner" specialOn="wound6p" specialDoes="ap3">
+		<range>12</range>
+		<type>assault</type>
+		<shots>2</shots>
+		<strength>6</strength>
+		<armorPenetration>0</armorPenetration>
+		<damage>1</damage>
+		<pointsPerWeapon>8</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Doom Weaver" specialOn="wound6p" specialDoes="ap3">
+		<range>48</range>
+		<type>heavy</type>
+		<shots>2d6</shots>
+		<strength>7</strength>
+		<armorPenetration>0</armorPenetration>
+		<damage>2</damage>
+		<pointsPerWeapon>0</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Dragons Breath Flamer" specialOn="hit" specialDoes="auto">
+		<range>8</range>
+		<type>assault</type>
+		<shots>d6</shots>
+		<strength>5</strength>
+		<armorPenetration>1</armorPenetration>
+		<damage>1</damage>
+		<pointsPerWeapon>17</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="D-Cannon">
+		<range>24</range>
+		<type>heavy</type>
+		<shots>d3</shots>
+		<strength>12</strength>
+		<armorPenetration>4</armorPenetration>
+		<damage>d6</damage>
+		<pointsPerWeapon>45</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="D-Scythe" specialOn="hit" specialDoes="auto">
+		<range>8</range>
+		<type>assault</type>
+		<shots>d3</shots>
+		<strength>10</strength>
+		<armorPenetration>4</armorPenetration>
+		<damage>1</damage>
+		<pointsPerWeapon>22</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="The Eye of Wrath">
+		<range>3</range>
+		<type>pistol</type>
+		<shots>d6</shots>
+		<strength>6</strength>
+		<armorPenetration>2</armorPenetration>
+		<damage>1</damage>
+		<pointsPerWeapon>0</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Firepike" specialOn="damageHalfRange" specialDoes="roll2PickHigher">
+		<range>18</range>
+		<type>assault</type>
+		<shots>1</shots>
+		<strength>8</strength>
+		<armorPenetration>4</armorPenetration>
+		<damage>d6</damage>
+		<pointsPerWeapon>20</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Flamer" specialOn="hit" specialDoes="auto">
+		<range>8</range>
+		<type>assault</type>
+		<shots>d6</shots>
+		<strength>4</strength>
+		<armorPenetration>0</armorPenetration>
+		<damage>1</damage>
+		<pointsPerWeapon>9</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Fusion Gun" specialOn="damageHalfRange" specialDoes="roll2PickHigher">
+		<range>12</range>
+		<type>assault</type>
+		<shots>1</shots>
+		<strength>8</strength>
+		<armorPenetration>4</armorPenetration>
+		<damage>d6</damage>
+		<pointsPerWeapon>17</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Fusion Pistol" specialOn="damageHalfRange" specialDoes="roll2PickHigher">
+		<range>6</range>
+		<type>pistol</type>
+		<shots>1</shots>
+		<strength>8</strength>
+		<armorPenetration>4</armorPenetration>
+		<damage>d6</damage>
+		<pointsPerWeapon>9</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Hawks Talon">
+		<range>24</range>
+		<type>assault</type>
+		<shots>4</shots>
+		<strength>5</strength>
+		<armorPenetration>0</armorPenetration>
+		<damage>1</damage>
+		<pointsPerWeapon>10</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Heavy D-Scythe" specialOn="hit" specialDoes="auto">
+		<range>16</range>
+		<type>assault</type>
+		<shots>d3</shots>
+		<strength>12</strength>
+		<armorPenetration>4</armorPenetration>
+		<damage>2</damage>
+		<pointsPerWeapon>0</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Heavy Wraithcannon">
+		<range>36</range>
+		<type>assault</type>
+		<shots>2</shots>
+		<strength>16</strength>
+		<armorPenetration>4</armorPenetration>
+		<damage>d6</damage>
+		<pointsPerWeapon>50</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Lasblaster">
+		<range>24</range>
+		<type>assault</type>
+		<shots>4</shots>
+		<strength>3</strength>
+		<armorPenetration>0</armorPenetration>
+		<damage>1</damage>
+		<pointsPerWeapon>7</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Laser Lance">
+		<range>6</range>
+		<type>assault</type>
+		<shots>1</shots>
+		<strength>6</strength>
+		<armorPenetration>4</armorPenetration>
+		<damage>2</damage>
+		<pointsPerWeapon>8</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="The Maugetar" mode="shrieker" specialOn="slay" specialDoes="mortalD3">
+		<range>36</range>
+		<type>assault</type>
+		<shots>1</shots>
+		<strength>6</strength>
+		<armorPenetration>1</armorPenetration>
+		<damage>1</damage>
+		<pointsPerWeapon>0</pointsPerWeapon>
+		<mode weaponName="The Maugetar" mode="shuriken">
+			<range>36</range>
+			<type>assault</type>
+			<shots>4</shots>
+			<strength>6</strength>
+			<armorPenetration>1</armorPenetration>
+			<damage>1</damage>
+			<pointsPerWeapon>0</pointsPerWeapon>
+		</mode>
+	</weapon>
+
+	<weapon weaponName="Melta Bomb" specialOn="failedWoundVehicle" specialDoes="reroll">
+		<range>4</range>
+		<type>grenade</type>
+		<shots>1</shots>
+		<strength>8</strength>
+		<armorPenetration>4</armorPenetration>
+		<damage>d6</damage>
+		<pointsPerWeapon>0</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Plasma Grenade">
+		<range>6</range>
+		<type>grenade</type>
+		<shots>d6</shots>
+		<strength>4</strength>
+		<armorPenetration>1</armorPenetration>
+		<damage>1</damage>
+		<pointsPerWeapon>0</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Prism Cannon" mode="dispersed">
+		<range>60</range>
+		<type>heavy</type>
+		<shots>d6</shots>
+		<strength>6</strength>
+		<armorPenetration>3</armorPenetration>
+		<damage>1</damage>
+		<pointsPerWeapon>0</pointsPerWeapon>
+		<mode weaponName="Prism Cannon" mode="focused">
+			<range>60</range>
+			<type>heavy</type>
+			<shots>d3</shots>
+			<strength>9</strength>
+			<armorPenetration>4</armorPenetration>
+			<damage>d3</damage>
+			<pointsPerWeapon>0</pointsPerWeapon>
+		</mode>
+		<mode weaponName="Prism Cannon" mode="lance">
+			<range>60</range>
+			<type>heavy</type>
+			<shots>1</shots>
+			<strength>12</strength>
+			<armorPenetration>5</armorPenetration>
+			<damage>d6</damage>
+			<pointsPerWeapon>0</pointsPerWeapon>
+		</mode>
+	</weapon>
+
+	<weapon weaponName="Pulse Laser">
+		<range>48</range>
+		<type>heavy</type>
+		<shots>2</shots>
+		<strength>8</strength>
+		<armorPenetration>3</armorPenetration>
+		<damage>3</damage>
+		<pointsPerWeapon>0</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Ranger Long Rifle" specialOn="wound6p" specialDoes="mortal1">
+		<range>36</range>
+		<type>assault</type>
+		<shots>1</shots>
+		<strength>4</strength>
+		<armorPenetration>0</armorPenetration>
+		<damage>1</damage>
+		<pointsPerWeapon>0</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Reaper Launcher" mode="starshot">
+		<range>48</range>
+		<type>heavy</type>
+		<shots>1</shots>
+		<strength>8</strength>
+		<armorPenetration>2</armorPenetration>
+		<damage>3</damage>
+		<pointsPerWeapon>22</pointsPerWeapon>
+		<mode weaponName="Reaper Launcher" mode="starswarm">
+			<range>48</range>
+			<type>heavy</type>
+			<shots>2</shots>
+			<strength>5</strength>
+			<armorPenetration>2</armorPenetration>
+			<damage>2</damage>
+			<pointsPerWeapon>0</pointsPerWeapon>
+		</mode>
+	</weapon>
+
+	<weapon weaponName="Scatter Laser">
+		<range>36</range>
+		<type>heavy</type>
+		<shots>4</shots>
+		<strength>6</strength>
+		<armorPenetration>0</armorPenetration>
+		<damage>1</damage>
+		<pointsPerWeapon>10</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Scorpion Claw" specialOn="wound6p" specialDoes="ap3">
+		<range>12</range>
+		<type>assault</type>
+		<shots>2</shots>
+		<strength>4</strength>
+		<armorPenetration>0</armorPenetration>
+		<damage>1</damage>
+		<pointsPerWeapon>12</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Shadow Weaver" specialOn="wound6p" specialDoes="ap4">
+		<range>48</range>
+		<type>heavy</type>
+		<shots>d6</shots>
+		<strength>6</strength>
+		<armorPenetration>0</armorPenetration>
+		<damage>1</damage>
+		<pointsPerWeapon>25</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Shuriken Cannon" specialOn="wound6p" specialDoes="ap3">
+		<range>24</range>
+		<type>assault</type>
+		<shots>3</shots>
+		<strength>6</strength>
+		<armorPenetration>0</armorPenetration>
+		<damage>1</damage>
+		<pointsPerWeapon>10</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Shuriken Catapult" specialOn="wound6p" specialDoes="ap3">
+		<range>12</range>
+		<type>assault</type>
+		<shots>2</shots>
+		<strength>4</strength>
+		<armorPenetration>0</armorPenetration>
+		<damage>1</damage>
+		<pointsPerWeapon>0</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Shuriken Pistol" specialOn="wound6p" specialDoes="ap3">
+		<range>12</range>
+		<type>assault</type>
+		<shots>1</shots>
+		<strength>4</strength>
+		<armorPenetration>0</armorPenetration>
+		<damage>1</damage>
+		<pointsPerWeapon>0</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Silent Death">
+		<range>12</range>
+		<type>assault</type>
+		<shots>4</shots>
+		<strength>user</strength>
+		<armorPenetration>3</armorPenetration>
+		<damage>1</damage>
+		<pointsPerWeapon>0</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Singing Spear" specialOn="wound" specialDoes="auto2p">
+		<range>12</range>
+		<type>assault</type>
+		<shots>1</shots>
+		<strength>9</strength>
+		<armorPenetration>0</armorPenetration>
+		<damage>d3</damage>
+		<pointsPerWeapon>5</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Star Lance">
+		<range>6</range>
+		<type>assault</type>
+		<shots>1</shots>
+		<strength>8</strength>
+		<armorPenetration>4</armorPenetration>
+		<damage>2</damage>
+		<pointsPerWeapon>10</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Starcannon">
+		<range>36</range>
+		<type>heavy</type>
+		<shots>2</shots>
+		<strength>6</strength>
+		<armorPenetration>3</armorPenetration>
+		<damage>d3</damage>
+		<pointsPerWeapon>15</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Suncannon">
+		<range>48</range>
+		<type>heavy</type>
+		<shots>2d6</shots>
+		<strength>6</strength>
+		<armorPenetration>3</armorPenetration>
+		<damage>2</damage>
+		<pointsPerWeapon>118</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Tempest Launcher">
+		<range>36</range>
+		<type>heavy</type>
+		<shots>2d6</shots>
+		<strength>4</strength>
+		<armorPenetration>2</armorPenetration>
+		<damage>1</damage>
+		<pointsPerWeapon>27</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Twin Aeldari Missile Launcher" mode="Sunburst">
+		<range>48</range>
+		<type>heavy</type>
+		<shots>2d6</shots>
+		<strength>4</strength>
+		<armorPenetration>1</armorPenetration>
+		<damage>1</damage>
+		<pointsPerWeapon>50</pointsPerWeapon>
+		<mode weaponName="Twin Aeldari Missile Launcher" mode="Starshot">
+			<range>48</range>
+			<type>heavy</type>
+			<shots>2</shots>
+			<strength>8</strength>
+			<armorPenetration>2</armorPenetration>
+			<damage>d6</damage>
+			<pointsPerWeapon>0</pointsPerWeapon>
+		</mode>
+	</weapon>
+
+	<weapon weaponName="Twin Avenger Shuriken Catapult" specialOn="wound6p" specialDoes="ap3">
+		<range>18</range>
+		<type>assault</type>
+		<shots>4</shots>
+		<strength>4</strength>
+		<armorPenetration>0</armorPenetration>
+		<damage>1</damage>
+		<pointsPerWeapon>8</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Twin Bright Lance">
+		<range>36</range>
+		<type>heavy</type>
+		<shots>2</shots>
+		<strength>8</strength>
+		<armorPenetration>4</armorPenetration>
+		<damage>d6</damage>
+		<pointsPerWeapon>40</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Twin Scatter Laser">
+		<range>36</range>
+		<type>heavy</type>
+		<shots>8</shots>
+		<strength>6</strength>
+		<armorPenetration>0</armorPenetration>
+		<damage>1</damage>
+		<pointsPerWeapon>17</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Twin Shuriken Cannon" specialOn="wound6p" specialDoes="ap3">
+		<range>24</range>
+		<type>assault</type>
+		<shots>6</shots>
+		<strength>6</strength>
+		<armorPenetration>0</armorPenetration>
+		<damage>1</damage>
+		<pointsPerWeapon>17</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Twin Shuriken Catapult" specialOn="wound6p" specialDoes="ap3">
+		<range>12</range>
+		<type>assault</type>
+		<shots>4</shots>
+		<strength>4</strength>
+		<armorPenetration>0</armorPenetration>
+		<damage>1</damage>
+		<pointsPerWeapon>5</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Twin Star Cannon">
+		<range>36</range>
+		<type>heavy</type>
+		<shots>4</shots>
+		<strength>6</strength>
+		<armorPenetration>3</armorPenetration>
+		<damage>d3</damage>
+		<pointsPerWeapon>28</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Vibro Cannon" specialOn="targetSame" specialDoes="incrementApWoundBy1">
+		<range>48</range>
+		<type>heavy</type>
+		<shots>d3</shots>
+		<strength>7</strength>
+		<armorPenetration>1</armorPenetration>
+		<damage>2</damage>
+		<pointsPerWeapon>30</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Void Bringer" specialOn="wound2pExceptVehicle,wound6p" specialDoes="auto,mortal1">
+		<range>48</range>
+		<type>heavy</type>
+		<shots>1</shots>
+		<strength>4</strength>
+		<armorPenetration>3</armorPenetration>
+		<damage>3</damage>
+		<pointsPerWeapon>0</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="The Wailing Doom" specialOn="damage" specialDoes="roll2PickHigher">
+		<range>12</range>
+		<type>assault</type>
+		<shots>1</shots>
+		<strength>8</strength>
+		<armorPenetration>4</armorPenetration>
+		<damage>d6</damage>
+		<pointsPerWeapon>0</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Wraithcannon">
+		<range>12</range>
+		<type>assault</type>
+		<shots>1</shots>
+		<strength>10</strength>
+		<armorPenetration>4</armorPenetration>
+		<damage>d6</damage>
+		<pointsPerWeapon>17</pointsPerWeapon>
+	</weapon>
+
+	<warGear warGearName="Crystal Targeting Matrix">
+	</warGear>
+
+	<warGear warGearName="Spirit Stones">
+	</warGear>
+
+	<warGear warGearName="Star Engines">
+	</warGear>
+
+	<warGear warGearName="Vectored Engines">
+	</warGear>
+
+</EldarCraftworld>
+

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GreyKnights>
+
+	<unit unitName="Paladin Squad">
+		<model modelName="Paladin" minNum="2" maxNum="9" specialOn="defend" specialDoes="invul5p">
+			<move>5</move>
+			<ws>3</ws>
+			<bs>3</bs>
+			<strength>4</strength>
+			<toughness>4</toughness>
+			<wounds>3</wounds>
+			<attacks>3</attacks>
+			<leadership>8</leadership>
+			<armorSave>2</armorSave>
+			<pointsPerModel>46</pointsPerModel>
+			<equippedWeapon weaponName="Storm Bolter"></equippedWeapon>
+			<equippedWeapon weaponName="Nemesis Force Sword"></equippedWeapon>
+			<equippedWeapon weaponName="Frag Grenade"></equippedWeapon>
+			<equippedWeapon weaponName="Krak Grenade"></equippedWeapon>
+			<equippedWeapon weaponName="Psyk-Out Grenade"></equippedWeapon>
+		</model>
+		<model modelName="Paragon" minNum="1" maxNum="1" specialOn="defend" specialDoes="invul5p">
+			<move>5</move>
+			<ws>2</ws>
+			<bs>3</bs>
+			<strength>4</strength>
+			<toughness>4</toughness>
+			<wounds>3</wounds>
+			<attacks>3</attacks>
+			<leadership>9</leadership>
+			<armorSave>2</armorSave>
+			<pointsPerModel>46</pointsPerModel>
+			<equippedWeapon weaponName="Storm Bolter"></equippedWeapon>
+			<equippedWeapon weaponName="Nemesis Force Sword"></equippedWeapon>
+			<equippedWeapon weaponName="Frag Grenade"></equippedWeapon>
+			<equippedWeapon weaponName="Krak Grenade"></equippedWeapon>
+			<equippedWeapon weaponName="Psyk-Out Grenade"></equippedWeapon>
+		</model>
+	</unit>
+
+	<unit unitName="Strike Squad">
+		<model modelName="Grey Knight" minNum="4" maxNum="9">
+			<move>6</move>
+			<ws>3</ws>
+			<bs>3</bs>
+			<strength>4</strength>
+			<toughness>4</toughness>
+			<wounds>1</wounds>
+			<attacks>1</attacks>
+			<leadership>7</leadership>
+			<armorSave>3</armorSave>
+			<pointsPerModel>19</pointsPerModel>
+			<equippedWeapon weaponName="Storm Bolter"></equippedWeapon>
+			<equippedWeapon weaponName="Nemesis Force Sword"></equippedWeapon>
+			<equippedWeapon weaponName="Frag Grenade"></equippedWeapon>
+			<equippedWeapon weaponName="Krak Grenade"></equippedWeapon>
+			<equippedWeapon weaponName="Psyk-Out Grenade"></equippedWeapon>
+		</model>
+		<model modelName="Justicar" minNum="1" maxNum="1">
+			<move>5</move>
+			<ws>3</ws>
+			<bs>3</bs>
+			<strength>4</strength>
+			<toughness>4</toughness>
+			<wounds>1</wounds>
+			<attacks>2</attacks>
+			<leadership>8</leadership>
+			<armorSave>3</armorSave>
+			<pointsPerModel>19</pointsPerModel>
+			<equippedWeapon weaponName="Storm Bolter"></equippedWeapon>
+			<equippedWeapon weaponName="Nemesis Force Sword"></equippedWeapon>
+			<equippedWeapon weaponName="Frag Grenade"></equippedWeapon>
+			<equippedWeapon weaponName="Krak Grenade"></equippedWeapon>
+			<equippedWeapon weaponName="Psyk-Out Grenade"></equippedWeapon>
+		</model>
+	</unit>
+
+	<unit unitName="Terminator Squad">
+		<model modelName="Grey Knight Terminator" minNum="4" maxNum="9" specialOn="defend" specialDoes="invul5p">
+			<move>5</move>
+			<ws>3</ws>
+			<bs>3</bs>
+			<strength>4</strength>
+			<toughness>4</toughness>
+			<wounds>2</wounds>
+			<attacks>2</attacks>
+			<leadership>7</leadership>
+			<armorSave>2</armorSave>
+			<pointsPerModel>46</pointsPerModel>
+			<equippedWeapon weaponName="Storm Bolter"></equippedWeapon>
+			<equippedWeapon weaponName="Nemesis Force Sword"></equippedWeapon>
+			<equippedWeapon weaponName="Frag Grenade"></equippedWeapon>
+			<equippedWeapon weaponName="Krak Grenade"></equippedWeapon>
+			<equippedWeapon weaponName="Psyk-Out Grenade"></equippedWeapon>
+		</model>
+		<model modelName="Terminator Justicar" minNum="1" maxNum="1" specialOn="defend" specialDoes="invul5p">
+			<move>5</move>
+			<ws>3</ws>
+			<bs>3</bs>
+			<strength>4</strength>
+			<toughness>4</toughness>
+			<wounds>2</wounds>
+			<attacks>3</attacks>
+			<leadership>8</leadership>
+			<armorSave>2</armorSave>
+			<pointsPerModel>46</pointsPerModel>
+			<equippedWeapon weaponName="Storm Bolter"></equippedWeapon>
+			<equippedWeapon weaponName="Nemesis Force Sword"></equippedWeapon>
+			<equippedWeapon weaponName="Frag Grenade"></equippedWeapon>
+			<equippedWeapon weaponName="Krak Grenade"></equippedWeapon>
+			<equippedWeapon weaponName="Psyk-Out Grenade"></equippedWeapon>
+		</model>
+	</unit>
+
+	<weapon weaponName="Storm Bolter">
+		<range>24</range>
+		<type>rapid fire</type>
+		<shots>2</shots>
+		<strength>4</strength>
+		<armorPenetration>0</armorPenetration>
+		<damage>1</damage>
+		<pointsPerWeapon>2</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Nemesis Force Sword">
+		<range>melee</range>
+		<type>melee</type>
+		<shots>d6</shots>
+		<strength>user</strength>
+		<armorPenetration>3</armorPenetration>
+		<damage>d3</damage>
+		<pointsPerWeapon>0</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Frag Grenade">
+		<range>6</range>
+		<type>grenade</type>
+		<shots>d6</shots>
+		<strength>3</strength>
+		<armorPenetration>0</armorPenetration>
+		<damage>1</damage>
+		<pointsPerWeapon>0</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Krak Grenade">
+		<range>6</range>
+		<type>grenade</type>
+		<shots>1</shots>
+		<strength>6</strength>
+		<armorPenetration>1</armorPenetration>
+		<damage>d3</damage>
+		<pointsPerWeapon>0</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Psyk-Out Grenade" specialOn="hit6p" specialDoes="mortal1demon">
+		<range>6</range>
+		<type>grenade</type>
+		<shots>d3</shots>
+		<strength>2</strength>
+		<armorPenetration>0</armorPenetration>
+		<damage>1</damage>
+		<pointsPerWeapon>0</pointsPerWeapon>
+	</weapon>
+</GreyKnights>
