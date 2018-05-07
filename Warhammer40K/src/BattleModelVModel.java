@@ -74,8 +74,9 @@ public class BattleModelVModel {
 				double sumDamage = 0;
 				String bestMode = null;
 				for (int i = 0 ; i < aModel.getNumWeapons() ; i++) {
+					//Put logic here to throw grenade only if no other ranged weapons
 					String weaponType = aModel.getWeapon(i).getType();
-					if ((!weaponType.equals("grenade")) && (!weaponType.equals("pistol"))) {
+					if ((!weaponType.equals("grenade")||aModel.canThrowGrenade()) && (!weaponType.equals("pistol")) && (!weaponType.equals("melee"))) {
 						if ( aModel.getWeapon(i).getFiringMode() == null) {
 							damagePerAttack = rules.fight(aModel, i, dModel);
 							sumDamage += damagePerAttack;

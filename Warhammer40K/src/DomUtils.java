@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -164,9 +165,39 @@ public class DomUtils {
 			  
 		  }
 		  
+		  NodeList nodeListWargear = doc.getElementsByTagName("warGear");
+		  for (int tempWargear = 0; tempWargear < nodeListWargear.getLength();tempWargear++)
+		  {
+			  Node nodeWargear = nodeListWargear.item(tempWargear);
+				
+			  //System.out.println("\nCurrent Element : " + nodeWeapon.getNodeName());
+						
+			  if (nodeWargear.getNodeType() == Node.ELEMENT_NODE) 
+			  {
+				  Element elementWargear = (Element) nodeWargear;
+				  
+				  List<SpecialAbilities> wargearSpecials = new ArrayList<SpecialAbilities>();
+				  if ((elementWargear.hasAttribute("specialOn")) && (elementWargear.hasAttribute("specialDoes"))) {
+					  List<String> specialOnList = Arrays.asList(elementWargear.getAttribute("specialOn").split(","));
+					  List<String> specialDoesList = Arrays.asList(elementWargear.getAttribute("specialDoes").split(","));
+					  for (int tempSpecial = 0; tempSpecial < specialOnList.size(); tempSpecial++) {
+						  wargearSpecials.add(new SpecialAbilities(SpecialOn.valueOf(specialOnList.get(tempSpecial)),SpecialDoes.valueOf(specialDoesList.get(tempSpecial))));
+					  }
+				  }
+
+				  Wargear newWargear = new Wargear(elementWargear.getAttribute("warGearName"),
+						Integer.parseInt(elementWargear.getElementsByTagName("pointsPerWargear").item(0).getTextContent()),
+				  		wargearSpecials);	
+				 
+				  army.getFormation(0).addWargear(newWargear);
+			  }
+			  
+		  }
+		  
 		  NodeList nodeListUnit = doc.getElementsByTagName("unit");
 		  for (int tempUnit = 0; tempUnit < nodeListUnit.getLength();tempUnit++)
 		  {
+			  List<Unit> allUnitCombinations = new ArrayList<Unit>();
 			  Node nodeUnit = nodeListUnit.item(tempUnit);
 				
 			  //System.out.println("\nCurrent Element : " + nodeUnit.getNodeName());
@@ -175,22 +206,24 @@ public class DomUtils {
 			  {
 				  Element elementUnit = (Element) nodeUnit;
 				  
-				  Unit unitMin = new Unit(elementUnit.getAttribute("unitName"));
-				  Unit unitMax = new Unit(elementUnit.getAttribute("unitName"));
-				  Unit unitMinWithOptional = new Unit(elementUnit.getAttribute("unitName"));
-				  Unit unitMaxWithOptional = new Unit(elementUnit.getAttribute("unitName"));
-				  boolean hasOptionalModels = false;
+				  String unitName = elementUnit.getAttribute("unitName");
+				  
 				  NodeList nodeListModel = elementUnit.getElementsByTagName("model");
 				  for (int tempModel = 0; tempModel < nodeListModel.getLength(); tempModel++) {
 					  Node nodeModel = nodeListModel.item(tempModel);
 					  if (nodeModel.getNodeType() == Node.ELEMENT_NODE) {
 						  Element elementModel = (Element) nodeModel;
 						  List<Weapon> weaponList = new ArrayList<Weapon>();
+						  List<String> replaceThisList = new ArrayList<String>();
+						  List<String> replaceThatList = new ArrayList<String>();
+						  List<Dbl> howManyReplacements = new ArrayList<>();
 						  
 						  int minNum=0;
 						  int maxNum=0;
-						  double ratio=0;
+						  double ratio= 0;
+						  String replaces = null;
 						  
+						  //Optional elements in tag header
 						  if (elementModel.hasAttribute("minNum")) {
 							  minNum = Integer.parseInt(elementModel.getAttribute("minNum"));
 						  }
@@ -199,7 +232,9 @@ public class DomUtils {
 						  }
 					  	  if (elementModel.hasAttribute("ratio")) {
 							  ratio = Double.parseDouble(elementModel.getAttribute("ratio"));
-				  			  hasOptionalModels=true;
+						  }
+					  	  if (elementModel.hasAttribute("replaces")) {
+							  replaces = elementModel.getAttribute("replaces");
 						  }
 						  
 						  NodeList nodeListModelWeapon = elementModel.getElementsByTagName("equippedWeapon");
@@ -211,14 +246,29 @@ public class DomUtils {
 								  Weapon w = army.getFormation(0).getWeaponByName(weaponName);
 								  //Try new constructor
 								  Weapon weapon = new Weapon(w);
-								  if (elementModelWeapon.hasAttribute("replacementWeapons")) {
-									  List<String> replacementWeaponList = Arrays.asList(elementModelWeapon.getAttribute("replacementWeapons").split(","));
-									  weapon.setReplacements(replacementWeaponList);
-								  }
 								  if (elementModelWeapon.hasAttribute("mode")) {
 									  weapon.setFiringMode(elementModelWeapon.getAttribute("mode"));
 								  }
 								  weaponList.add(weapon);
+							  }
+						  }
+						  
+						  NodeList nodeListReplacementWeapons = elementModel.getElementsByTagName("replacementWeapon");
+						  for (int tempReplacementWeapon = 0; tempReplacementWeapon < nodeListReplacementWeapons.getLength(); tempReplacementWeapon++) {
+							  Node nodeReplacementWeapon = nodeListReplacementWeapons.item(tempReplacementWeapon);
+							  if (nodeReplacementWeapon.getNodeType() == Node.ELEMENT_NODE) {
+								  Element elementReplacementWeapon = (Element) nodeReplacementWeapon;
+								  if (elementReplacementWeapon.hasAttribute("replaceThis")) {
+									  String replaceThis = elementReplacementWeapon.getAttribute("replaceThis");
+									  String replaceThat = elementReplacementWeapon.getAttribute("withThat");
+									  if (elementReplacementWeapon.hasAttribute("maxReplacements")) {
+										  howManyReplacements.add(new Dbl(elementReplacementWeapon.getAttribute("maxReplacements")));
+									  } else {
+										  howManyReplacements.add(new Dbl(0));
+									  }
+									  if (replaceThis != null) replaceThisList.add(replaceThis);
+									  if (replaceThat != null) replaceThatList.add(replaceThat);
+								  }
 							  }
 						  }
 						  
@@ -243,53 +293,59 @@ public class DomUtils {
 									Integer.parseInt(elementModel.getElementsByTagName("armorSave").item(0).getTextContent()),
 									Integer.parseInt(elementModel.getElementsByTagName("pointsPerModel").item(0).getTextContent()),
 							  		weaponList,
-							  		modelSpecials);	
+							  		modelSpecials,
+							  		replaceThisList,
+							  		replaceThatList,
+							  		howManyReplacements);	
 						  //System.out.println(newModel);
-						  						  
-				  		  if (elementModel.hasAttribute("replaces")) {
-				  			  hasOptionalModels=true;
-							  unitMinWithOptional.addModelCount(maxNum, newModel);
-							  unitMinWithOptional.removeModelNameCount(maxNum, elementModel.getAttribute("replaces"));
-					  		  unitMaxWithOptional.addModelCount(maxNum, newModel);
-					  		  unitMaxWithOptional.removeModelNameCount(maxNum, elementModel.getAttribute("replaces"));
-				  		  }
-				  		  else {
-				  			  unitMin.addModelCount(minNum, newModel);
-					  		  unitMax.addModelCount(maxNum, newModel);
-					  		  if (ratio > 0) { minNum = (int)(ratio * unitMinWithOptional.getModelCount()); }
-							  unitMinWithOptional.addModelCount(minNum, newModel);
-					  		  if (ratio > 0) { maxNum = (int)(ratio * unitMaxWithOptional.getModelCount()); }
-					  		  unitMaxWithOptional.addModelCount(maxNum, newModel);
-				  		  }
+						    
+						  if (allUnitCombinations.size() == 0) {
+							  Unit unitMin = new Unit(unitName);
+							  Unit unitMax = new Unit(unitName);
+							  unitMin.addModelCount(minNum, newModel);
+							  unitMax.addModelCount(maxNum, newModel);
+				  			  allUnitCombinations.add(unitMin);
+					  		  allUnitCombinations.add(unitMax);
+						  } else {
+							  int size = allUnitCombinations.size();
+							  for (int i=0 ; i < size ; i++) {
+								  Unit unit = allUnitCombinations.get(i);
+								  if (minNum > 0) {
+									  unit.addModelCount(minNum, newModel);
+									  if (replaces != null) unit.removeModelNameCount(minNum, replaces);
+								  }
+
+								  if (ratio > 0) {
+									  double unitSize = unit.getModelCount();
+									  double maxNumDouble = unitSize * ratio;
+									  maxNum = (int)maxNumDouble;
+								  }
+								  if (maxNum > minNum) {
+									  //Unit add = new Unit(unit);
+									  Unit add = new Unit(unit);
+									  add.addModelCount(maxNum, newModel);
+									  if (replaces != null) add.removeModelNameCount(maxNum, replaces);
+									  allUnitCombinations.add(add);
+								  }
+							  }
+						  }
+
+					  }
+				  }
+				   
+				  
+				  for (Unit unit : allUnitCombinations) {
+					  for (Unit u : weaponVariationCombos(unit, army)) {
+						  army.getFormation(0).addUnit(u);
 					  }
 				  }
 				  
-				  for (Unit unit : weaponVariationCombos(unitMin, army)) {
-					  army.getFormation(0).addUnit(unit);
-				  }
-				  //army.getFormation(0).addUnit(unitMin);
-				  
-				  for (Unit unit : weaponVariationCombos(unitMax, army)) {
-					  army.getFormation(0).addUnit(unit);
-				  }
-				  //army.getFormation(0).addUnit(unitMax);
-				  
-				  if (hasOptionalModels) {
-					  for (Unit unit : weaponVariationCombos(unitMinWithOptional, army)) {
-						  army.getFormation(0).addUnit(unit);
-					  }
-					  //army.getFormation(0).addUnit(unitMinWithOptional);
-					  for (Unit unit : weaponVariationCombos(unitMaxWithOptional, army)) {
-						  army.getFormation(0).addUnit(unit);
-					  }
-					  //army.getFormation(0).addUnit(unitMaxWithOptional);
-				  }
 			  }
 			  
 		  }
 		  
 	  } catch (Exception e) {
-		    	System.out.println(e.getMessage());
+		    	System.out.println(e.toString() + e.getMessage());
 	  }
 	  
 	  System.out.println(army);
@@ -297,36 +353,40 @@ public class DomUtils {
   }
   
   public List<Unit> weaponVariationCombos(Unit unit, Army army) {
+	  List<Unit> unitList = new ArrayList<Unit>();
 	  int unitSize = unit.getModelCount();
 	  int combinations = unit.getUnitWeaponCombinations();
-	  List<Unit> unitList = new ArrayList<Unit>();
 	  if (combinations > 1) {
+		  //Need to keep track of which models have replace which weapons
+		  //so that unit totals do not get exceeded.
 		  int stepSize = 1;
 		  for (int i = 0 ; i < unitSize; i++) {
 			  int increment = 0;
 			  int weaponNum = 0;
-			  int modelWeaponCombinations = 0;
-			  modelWeaponCombinations = unit.getModel(i).getModelWeaponCombinations();
+			  int nextWeaponNum = 0;
+			  int numChoices = 0;
+
 			  for (int j = 0; j < combinations; j++) {
 				  if (i == 0) {
-					  Unit clone = new Unit(unit.getUnitName());
-					  for (Model m : unit.getModelList()) {
-						  clone.addModel(m);
-					  }
+					  Unit clone = new Unit(unit);
+					  //Unit clone = new Unit(unit.getUnitName());
+					  //for (Model m : unit.getModelList()) {
+					//	  clone.addModel(m);
+					 // }
 					  unitList.add(clone);
 				  }
-				  if ( modelWeaponCombinations > 1) {
-					  unitList.get(j).getModel(i).setWeaponByCombinationNumber(weaponNum,army.getFormation(0));
-					  increment = increment + 1;
-				  }
+				  nextWeaponNum = unitList.get(j).setWeaponByCombinationNumber(i,weaponNum,army.getFormation(0));
+				  increment = increment + 1;
 				  if (increment >= stepSize) {
 					  weaponNum = weaponNum + 1;
+					  increment = 0;
 				  }
-				  if (weaponNum >= modelWeaponCombinations) {
+				  if (nextWeaponNum == 0 && increment == 0) {
+					  numChoices = weaponNum;
 					  weaponNum = 0;
 				  }
 			  }
-			  stepSize = stepSize * modelWeaponCombinations;
+			  stepSize = stepSize * numChoices;
 		  }
 	  }
 	  else {

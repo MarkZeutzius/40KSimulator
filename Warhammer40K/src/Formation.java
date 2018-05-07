@@ -24,17 +24,32 @@ public class Formation {
 		weaponList.add(weaponToAdd);
 	}
 	
+	void addWargear(Wargear wargearToAdd) {
+		wargearList.add(wargearToAdd);
+	}
+	
 	List<Unit> getUnitList() {
 		return unitList;
 	}
 	
-	Weapon getWeaponByName(String weaponName) {
+	Weapon getWeaponByName(String weaponName) throws WeaponNotFoundException {
 		for (Weapon weapon : weaponList) {
 			if (weapon.getWeaponName().equals(weaponName)) {
 				return weapon;
 			}
 		}
 		return null;
+		//throw new WeaponNotFoundException("Weapon with name "+weaponName+" was not found.");
+	}
+	
+	Wargear getWargearByName(String wargearByName) throws WeaponNotFoundException {
+		for (Wargear wargear : wargearList) {
+			if (wargear.getWargearName().equals(wargearByName)) {
+				return wargear;
+			}
+		}
+		return null;
+		//throw new WeaponNotFoundException("Weapon with name "+weaponName+" was not found.");
 	}
 	
 	public String toString() {

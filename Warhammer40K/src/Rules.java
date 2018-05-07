@@ -176,8 +176,16 @@ public class Rules {
 	}
 	
 	double getNumberOfShots(String numberOfShots) {
-		if (numberOfShots.startsWith("d")) {
-			return (Double.parseDouble(numberOfShots.replace("d", ""))+1)/2.0;
+		if (numberOfShots.contains("d")) {
+			String[] dice = numberOfShots.split("d");
+			int firstNum = 1;
+			if (dice[0].equals("")) {
+				firstNum =1;
+			} else {
+				firstNum = Integer.parseInt(dice[0]);
+			}
+			int secondNum = Integer.parseInt(dice[1]);
+			return (firstNum * (secondNum+1))/2;
 		}
 		else {
 			return Double.parseDouble(numberOfShots);

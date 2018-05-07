@@ -13,8 +13,9 @@
 			<leadership>7</leadership>
 			<armorSave>5</armorSave>
 			<pointsPerModel>8</pointsPerModel>
-			<equippedWeapon weaponName="Shuriken Catapult"></equippedWeapon>
-			<equippedWeapon weaponName="Plasma Grenade"></equippedWeapon>
+			<equippedWeapon weaponName="Shuriken Catapult"/>
+			<equippedWeapon weaponName="Plasma Grenade"/>
+			<replacementWeapon/>
 		</model>
 		<model modelName="Heavy Weapon Platform" ratio="0.1">
 			<move>7</move>
@@ -27,11 +28,12 @@
 			<leadership>7</leadership>
 			<armorSave>3</armorSave>
 			<pointsPerModel>5</pointsPerModel>
-			<equippedWeapon weaponName="Shuriken Cannon" replacementWeapons="Aeldari Missile Launcher,Bright Lance,Scatter Laser,Starcannon"></equippedWeapon>
+			<equippedWeapon weaponName="Shuriken Cannon"/>
+			<replacementWeapon replaceThis="Shuriken Cannon" withThat="Aeldari Missile Launcher,Bright Lance,Scatter Laser,Starcannon"/>
 		</model>
 	</unit>
 
-	<unit unitName="Guardian Defenders">
+	<unit unitName="Storm Guardians">
 		<model modelName="Guardian" minNum="8" maxNum="24">
 			<move>7</move>
 			<ws>3</ws>
@@ -43,11 +45,13 @@
 			<leadership>7</leadership>
 			<armorSave>5</armorSave>
 			<pointsPerModel>8</pointsPerModel>
-			<equippedWeapon weaponName="Shuriken Pistol" replacementWeapons="Fusion Gun,Flamer" alsoReplaces"Aeldari Blade"></equippedWeapon>
-			<equippedWeapon weaponName="Aeldari Blade"></equippedWeapon>
-			<equippedWeapon weaponName="Plasma Grenade"></equippedWeapon>
+			<equippedWeapon weaponName="Shuriken Pistol"/>
+			<equippedWeapon weaponName="Aeldari Blade"/>
+			<equippedWeapon weaponName="Plasma Grenade"/>
+			<replacementWeapon replaceThis="Shuriken Pistol AND Aeldari Blade" withThat="Flamer,Fusion Gun" maxReplacements="2"/>
 		</model>
 	</unit>
+
 	<unit unitName="Dire Avengers">
 		<model modelName="Dire Avenger" minNum="5" maxNum="10">
 			<move>7</move>
@@ -60,10 +64,11 @@
 			<leadership>8</leadership>
 			<armorSave>4</armorSave>
 			<pointsPerModel>8</pointsPerModel>
-			<equippedWeapon weaponName="Avenger Shuriken Catapult"></equippedWeapon>
-			<equippedWeapon weaponName="Plasma Grenade"></equippedWeapon>
+			<equippedWeapon weaponName="Avenger Shuriken Catapult"/>
+			<equippedWeapon weaponName="Plasma Grenade"/>
+			<replacementWeapon/>
 		</model>
-		<model modelName="Dire Avenger Exarch" minNum="0" maxNum="1" replaces="Dire Avenger">
+		<model modelName="Dire Avenger Exarch" minNum="0" maxNum="1" replaces="Dire Avenger" specialOn="defend" specialDoes="invul4p">
 			<move>7</move>
 			<ws>3</ws>
 			<bs>3</bs>
@@ -74,8 +79,9 @@
 			<leadership>8</leadership>
 			<armorSave>4</armorSave>
 			<pointsPerModel>8</pointsPerModel>
-			<equippedWeapon weaponName="Avenger Shuriken Catapult" replacementWeapons="Twin Avenger Shuriken Catapult"></equippedWeapon>
+			<equippedWeapon weaponName="Avenger Shuriken Catapult"></equippedWeapon>
 			<equippedWeapon weaponName="Plasma Grenade"></equippedWeapon>
+			<replacementWeapon replaceThis="Avenger Shuriken Catapult" withThat="Twin Avenger Shuriken Catapult,Shuriken Pistol AND Power Glaive, Shuriken Pistol AND Diresword, Shimmershield AND Power Glaive"/>
 		</model>
 	</unit>
 
@@ -97,6 +103,70 @@
 		</model>
 	</unit>
 
+	<unit unitName="Howling Banshees">
+		<model modelName="Howling Banshee" minNum="5" maxNum="10">
+			<move>8</move>
+			<ws>3</ws>
+			<bs>3</bs>
+			<strength>3</strength>
+			<toughness>3</toughness>
+			<wounds>1</wounds>
+			<attacks>2</attacks>
+			<leadership>8</leadership>
+			<armorSave>4</armorSave>
+			<pointsPerModel>9</pointsPerModel>
+			<equippedWeapon weaponName="Shuriken Pistol"/>
+			<equippedWeapon weaponName="Power Sword"/>
+			<replacementWeapon/>
+		</model>
+		<model modelName="Howling Banshee Exarch" minNum="0" maxNum="1" replaces="Howling Banshee">
+			<move>8</move>
+			<ws>3</ws>
+			<bs>3</bs>
+			<strength>3</strength>
+			<toughness>3</toughness>
+			<wounds>2</wounds>
+			<attacks>3</attacks>
+			<leadership>8</leadership>
+			<armorSave>4</armorSave>
+			<pointsPerModel>9</pointsPerModel>
+			<equippedWeapon weaponName="Shuriken Pistol"></equippedWeapon>
+			<equippedWeapon weaponName="Power Sword"></equippedWeapon>
+			<replacementWeapon replaceThis="Power Sword" withThat="Executioner"/>
+			<replacementWeapon replaceThis="Shuriken Pistol AND Power Sword" withThat="Mirrorswords"/>
+		</model>
+	</unit>
+
+	<unit unitName="Dark Reapers">
+		<model modelName="Dark Reaper" minNum="3" maxNum="10">
+			<move>6</move>
+			<ws>3</ws>
+			<bs>3</bs>
+			<strength>3</strength>
+			<toughness>3</toughness>
+			<wounds>1</wounds>
+			<attacks>1</attacks>
+			<leadership>8</leadership>
+			<armorSave>3</armorSave>
+			<pointsPerModel>5</pointsPerModel>
+			<equippedWeapon weaponName="Reaper Launcher"/>
+			<replacementWeapon/>
+		</model>
+		<model modelName="Dark Reaper Exarch" minNum="0" maxNum="1" replaces="Dark Reaper">
+			<move>8</move>
+			<ws>3</ws>
+			<bs>3</bs>
+			<strength>3</strength>
+			<toughness>3</toughness>
+			<wounds>2</wounds>
+			<attacks>3</attacks>
+			<leadership>8</leadership>
+			<armorSave>4</armorSave>
+			<pointsPerModel>5</pointsPerModel>
+			<equippedWeapon weaponName="Reaper Launcher"/>
+			<replacementWeapon replaceThis="Reaper Launcher" withThat="Shuriken Cannon, Aeldari Missile Launcher, Tempest Launcher"/>
+		</model>
+	</unit>
 
 	<weapon weaponName="Aeldari Missile Launcher" mode="Sunburst">
 		<range>48</range>
@@ -632,16 +702,368 @@
 		<pointsPerWeapon>17</pointsPerWeapon>
 	</weapon>
 
-	<warGear warGearName="Crystal Targeting Matrix">
+	<!-- Melee Weapons -->
+
+	<weapon weaponName="Aeldari Blade" specialOn="hit" specialDoes="reroll">
+		<range/>
+		<type>melee</type>
+		<shots/>
+		<strength>user</strength>
+		<armorPenetration>0</armorPenetration>
+		<damage>1</damage>
+		<pointsPerWeapon>0</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Biting Blade">
+		<range/>
+		<type>melee</type>
+		<shots/>
+		<strength>+2</strength>
+		<armorPenetration>1</armorPenetration>
+		<damage>2</damage>
+		<pointsPerWeapon>8</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Blade of Destruction" specialOn="failWound" specialDoes="reroll">
+		<range/>
+		<type>melee</type>
+		<shots/>
+		<strength>+2</strength>
+		<armorPenetration>3</armorPenetration>
+		<damage>d3</damage>
+		<pointsPerWeapon>0</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Chainsword"  specialOn="attack" specialDoes="p1">
+		<range/>
+		<type>melee</type>
+		<shots/>
+		<strength>user</strength>
+		<armorPenetration>0</armorPenetration>
+		<damage>1</damage>
+		<pointsPerWeapon>0</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Diresword" specialOn="wound6p" specialDoes="mortal1">
+		<range/>
+		<type>melee</type>
+		<shots/>
+		<strength>user</strength>
+		<armorPenetration>2</armorPenetration>
+		<damage>1</damage>
+		<pointsPerWeapon>4</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Executioner">
+		<range/>
+		<type>melee</type>
+		<shots/>
+		<strength>+1</strength>
+		<armorPenetration>3</armorPenetration>
+		<damage>d3</damage>
+		<pointsPerWeapon>7</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Fire Axe">
+		<range/>
+		<type>melee</type>
+		<shots/>
+		<strength>user</strength>
+		<armorPenetration>4</armorPenetration>
+		<damage>d3</damage>
+		<pointsPerWeapon>0</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Ghostaxe" specialOn="hit" specialDoes="m1">
+		<range/>
+		<type>melee</type>
+		<shots/>
+		<strength>+2</strength>
+		<armorPenetration>3</armorPenetration>
+		<damage>d3</damage>
+		<pointsPerWeapon>10</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Ghostglaive">
+		<range/>
+		<type>melee</type>
+		<shots/>
+		<strength>+2</strength>
+		<armorPenetration>4</armorPenetration>
+		<damage>d6</damage>
+		<pointsPerWeapon>10</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Ghostswords" specialOn="attack" specialDoes="p1">
+		<range/>
+		<type>melee</type>
+		<shots/>
+		<strength>+1</strength>
+		<armorPenetration>3</armorPenetration>
+		<damage>1</damage>
+		<pointsPerWeapon>6</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Laser Lance" specialOn="charge" specialDoes="s6">
+		<range/>
+		<type>melee</type>
+		<shots/>
+		<strength>user</strength>
+		<armorPenetration>4</armorPenetration>
+		<damage>2</damage>
+		<pointsPerWeapon>0</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="The Maugetar">
+		<range/>
+		<type>melee</type>
+		<shots/>
+		<strength>+2</strength>
+		<armorPenetration>2</armorPenetration>
+		<damage>d3</damage>
+		<pointsPerWeapon>0</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Mirrorswords" specialOn="hit" specialDoes="reroll">
+		<range/>
+		<type>melee</type>
+		<shots/>
+		<strength>user</strength>
+		<armorPenetration>2</armorPenetration>
+		<damage>1</damage>
+		<pointsPerWeapon>4</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Paragon Sabre" specialOn="wound" specialDoes="reroll">
+		<range/>
+		<type>melee</type>
+		<shots/>
+		<strength>user</strength>
+		<armorPenetration>4</armorPenetration>
+		<damage>1</damage>
+		<pointsPerWeapon>8</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Power Glaive">
+		<range/>
+		<type>melee</type>
+		<shots/>
+		<strength>+1</strength>
+		<armorPenetration>2</armorPenetration>
+		<damage>1</damage>
+		<pointsPerWeapon>4</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Power Sword">
+		<range/>
+		<type>melee</type>
+		<shots/>
+		<strength>user</strength>
+		<armorPenetration>3</armorPenetration>
+		<damage>1</damage>
+		<pointsPerWeapon>4</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Powerblades" specialOn="attack" specialDoes="p1">
+		<range/>
+		<type>melee</type>
+		<shots/>
+		<strength>user</strength>
+		<armorPenetration>2</armorPenetration>
+		<damage>1</damage>
+		<pointsPerWeapon>4</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Scorpion Chainsword">
+		<range/>
+		<type>melee</type>
+		<shots/>
+		<strength>+1</strength>
+		<armorPenetration>0</armorPenetration>
+		<damage>1</damage>
+		<pointsPerWeapon>1</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Scorpion Claw">
+		<range/>
+		<type>melee</type>
+		<shots/>
+		<strength>x2</strength>
+		<armorPenetration>3</armorPenetration>
+		<damage>d3</damage>
+		<pointsPerWeapon>0</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="The Shining Blade" specialOn="wound" specialDoes="opponentHitM1">
+		<range/>
+		<type>melee</type>
+		<shots/>
+		<strength>+1</strength>
+		<armorPenetration>3</armorPenetration>
+		<damage>d3</damage>
+		<pointsPerWeapon>0</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Singing Spear" specialOn="wound" specialDoes="auto2p">
+		<range/>
+		<type>melee</type>
+		<shots/>
+		<strength>user</strength>
+		<armorPenetration>0</armorPenetration>
+		<damage>d3</damage>
+		<pointsPerWeapon>0</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="The Spear of Twilight" specialOn="wound" specialDoes="auto2p">
+		<range/>
+		<type>melee</type>
+		<shots/>
+		<strength>user</strength>
+		<armorPenetration>2</armorPenetration>
+		<damage>d3</damage>
+		<pointsPerWeapon>0</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Staff of Ulthamar">
+		<range/>
+		<type>melee</type>
+		<shots/>
+		<strength>+2</strength>
+		<armorPenetration>2</armorPenetration>
+		<damage>d3</damage>
+		<pointsPerWeapon>0</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Star Glaive" specialOn="hit" specialDoes="m1">
+		<range/>
+		<type>melee</type>
+		<shots/>
+		<strength>x2</strength>
+		<armorPenetration>3</armorPenetration>
+		<damage>d3</damage>
+		<pointsPerWeapon>6</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Star Lance" specialOn="charge" specialDoes="s8">
+		<range/>
+		<type>melee</type>
+		<shots/>
+		<strength>user</strength>
+		<armorPenetration>4</armorPenetration>
+		<damage>2</damage>
+		<pointsPerWeapon>0</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="The Sword of Asur" specialOn="wound6p" specialDoes="mortalD3">
+		<range/>
+		<type>melee</type>
+		<shots/>
+		<strength>+1</strength>
+		<armorPenetration>3</armorPenetration>
+		<damage>d3</damage>
+		<pointsPerWeapon>0</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Titanic Feet" specialOn="attack" specialDoes="x3">
+		<range/>
+		<type>melee</type>
+		<shots/>
+		<strength>user</strength>
+		<armorPenetration>2</armorPenetration>
+		<damage>d3</damage>
+		<pointsPerWeapon>0</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Titanic Ghostglaive">
+		<range/>
+		<type>melee</type>
+		<shots/>
+		<strength>x2</strength>
+		<armorPenetration>4</armorPenetration>
+		<damage>6</damage>
+		<pointsPerWeapon>30</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Titanic Wraithbone Fists">
+		<range/>
+		<type>melee</type>
+		<shots/>
+		<strength>user</strength>
+		<armorPenetration>3</armorPenetration>
+		<damage>d6</damage>
+		<pointsPerWeapon>0</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="The Wailing Doom" specialOn="wound" specialDoes="roll2PickHigher">
+		<range/>
+		<type>melee</type>
+		<shots/>
+		<strength>+2</strength>
+		<armorPenetration>4</armorPenetration>
+		<damage>d6</damage>
+		<pointsPerWeapon>0</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Witch Staff" specialOn="wound" specialDoes="auto2p">
+		<range/>
+		<type>melee</type>
+		<shots/>
+		<strength>user</strength>
+		<armorPenetration>0</armorPenetration>
+		<damage>2</damage>
+		<pointsPerWeapon>0</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Witchblade" specialOn="wound" specialDoes="auto2p">
+		<range/>
+		<type>melee</type>
+		<shots/>
+		<strength>user</strength>
+		<armorPenetration>0</armorPenetration>
+		<damage>d3</damage>
+		<pointsPerWeapon>0</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Wraithbone Fists">
+		<range/>
+		<type>melee</type>
+		<shots/>
+		<strength>user</strength>
+		<armorPenetration>3</armorPenetration>
+		<damage>3</damage>
+		<pointsPerWeapon>0</pointsPerWeapon>
+	</weapon>
+
+	<weapon weaponName="Wraithguard Fists">
+		<range/>
+		<type>melee</type>
+		<shots/>
+		<strength>user</strength>
+		<armorPenetration>1</armorPenetration>
+		<damage>d3</damage>
+		<pointsPerWeapon>0</pointsPerWeapon>
+	</weapon>
+
+	<!-- Wargear -->
+
+	<warGear warGearName="Crystal Targeting Matrix" specialOn="hit" specialDoes="noHeavyPenalty">
+		<pointsPerWargear>5</pointsPerWargear>
 	</warGear>
 
-	<warGear warGearName="Spirit Stones">
+	<warGear warGearName="Spirit Stones" specialOn="wound" specialDoes="fnp6p">
+		<pointsPerWargear>10</pointsPerWargear>
 	</warGear>
 
-	<warGear warGearName="Star Engines">
+	<warGear warGearName="Star Engines" specialOn="advance" specialDoes="advance2d6">
+		<pointsPerWargear>10</pointsPerWargear>
 	</warGear>
 
-	<warGear warGearName="Vectored Engines">
+	<warGear warGearName="Vectored Engines" specialOn="opponentsAttack" specialDoes="m1Hit">
+		<pointsPerWargear>10</pointsPerWargear>
+	</warGear>
+
+	<warGear warGearName="Shimmershield" specialOn="defend" specialDoes="invul5pUnit">
+		<pointsPerWargear>20</pointsPerWargear>
 	</warGear>
 
 </EldarCraftworld>

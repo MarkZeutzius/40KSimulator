@@ -11,14 +11,27 @@ public class Weapon {
 	String damage;
 	int pointsPerWeapon;
 	List<SpecialAbilities> weaponSpecials = new ArrayList<SpecialAbilities>();	
-	List<String> replacements = new ArrayList<String>();
 	String firingMode;
 	List<Weapon> extraFiringModes = new ArrayList<Weapon>();
 	
 	Weapon(){}
 	
 	Weapon(Weapon w) {
-		this(w.getName(),w.getRange(),w.getType(),w.getShots(),w.getStrength(),w.getArmorPenetration(),w.getDamage(),w.getPointsPerWeapon(),w.getWeaponSpecials());
+		this(w.getName(),w.getRange(),w.getType(),w.getShots(),w.getStrength(),w.getArmorPenetration(),w.getDamage(),w.getPointsPerWeapon(),w.getWeaponSpecials(),w.getFiringMode(),w.getExtraFiringModes());
+	}
+	
+	Weapon(String name, String range, String type, String shots, String strength, int armorPenetration, String damage, int pointsPerWeapon, List<SpecialAbilities> weaponSpecials, String firingMode, List<Weapon> extraFiringModes){
+		this.name=name;
+		this.range=range;
+		this.type=type;
+		this.shots=shots;
+		this.strength=strength;
+		this.armorPenetration=armorPenetration;
+		this.damage=damage;
+		this.pointsPerWeapon=pointsPerWeapon;
+		this.weaponSpecials=weaponSpecials;
+		this.firingMode=firingMode;
+		this.extraFiringModes=extraFiringModes;
 	}
 	
 	Weapon(String name, String range, String type, String shots, String strength, int armorPenetration, String damage, int pointsPerWeapon, List<SpecialAbilities> weaponSpecials){
@@ -81,18 +94,6 @@ public class Weapon {
 		return weaponSpecials;
 	}
 	
-	public List<String> getReplacements() {
-		return replacements;
-	}
-	
-	public String getReplacementByIndex(int index) {
-		return replacements.get(index);
-	}
-	
-	public void setReplacements(List<String> replacements) {
-		this.replacements=replacements;
-	}
-	
 	public void setFiringMode(String firingMode) {
 		this.firingMode=firingMode;
 	}
@@ -100,17 +101,7 @@ public class Weapon {
 	public void setExtraFiringModes(List<Weapon> extraFiringModes) {
 		this.extraFiringModes=extraFiringModes;
 	}
-	
-	public int getWeaponCombinations() {
-		if ((replacements != null) || (replacements.size() > 0)) {
-			return 1 + replacements.size();
-		} 
-		else {
-			return 1;
-		}
-			
-	}
-	
+		
 	public List<SpecialAbilities> getHitSpecials() {
 		List<SpecialAbilities> tempList = new ArrayList<SpecialAbilities>();
 		for (SpecialAbilities sa : weaponSpecials) {
