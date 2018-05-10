@@ -292,7 +292,7 @@ public class Model {
 	public void removeWeapons(List<String> weaponNames) {
 		for (String wN : weaponNames) {
 			for (int i=0 ; i<weapons.size() ; i++) {
-				if (weapons.get(i).getName().equals(wN)) weapons.remove(i);
+				if (weapons.get(i).getName().equals(wN.trim())) weapons.remove(i);
 			}
 		}
 	}

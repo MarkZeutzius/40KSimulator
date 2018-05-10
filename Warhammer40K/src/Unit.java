@@ -102,9 +102,11 @@ public class Unit {
 			List<String> wtL = model.getWithThat();
 			List<Dbl> mrL = model.getHowManyReplacements();
 			//If this model/weapon combo has not been attempted before add it to the list of all mode/weapon combo attempts
+			//But use a temporary replacement counter because the unit being used here is a template for other units.
 			updateUnitModelReplacementLists(model);
 
 			boolean validReplacement=true;
+			int num = 1;
 			for (int i=0 ; i < rtL.size() ; i++) {			
 				String[] parts = rtL.get(i).split("AND");
 				for (int j=0 ; j<parts.length ; j++) {
@@ -113,15 +115,17 @@ public class Unit {
 				}
 				if (validReplacement && isReplacementAllowed(model)) {
 					String[] p = wtL.get(i).split(",");
-					int num = p.length + 1;
-					if (mrL.get(i).getValue()==0 || modelHasReplacedThisWithThat.get(i).getValue() < mrL.get(i).getValue()) {
+					//Change here so that num only increases if there are replacement slots left
+					//int replacementIndex = findIndexOfUnitReplacementCounts(model, i);
+					//if (mrL.get(i).getValue()==0 || modelHasReplacedThisWithThat.get(replacementIndex).getValue() < mrL.get(i).getValue()) {
+						num += p.length;
 						product = product * num;
-						modelHasReplacedThisWithThat.get(i).addOne();
-						break;
-					}
+						//break;
+					//}
 				}
 			}
 		}
+		clearReplacementCounters();
 		return product;
 	}
 	
@@ -130,17 +134,6 @@ public class Unit {
 		List<String> wtL = model.getWithThat();
 		List<Dbl> mrL = model.getHowManyReplacements();
 		boolean allowReplace = false;
-		//If this model/weapon combo has not been attempted before add it to the list of all mode/weapon combo attempts
-//		for (int i=0 ; i < modelHasReplaced.size() ; i++) {
-//			for (int j=0 ; j < rtL.size() ; j ++) {
-//				if ((!model.getName().equals((i))) && (!modelHasReplacedThis.get(i).equals(rtL.get(j))) && (!modelHasReplacedWithThat.get(i).equals(wtL.get(j)))) {
-//					modelHasReplaced.add(model.getName());
-//					modelHasReplacedThis.add(rtL.get(j));
-//					modelHasReplacedWithThat.add(wtL.get(j));
-//					modelHasReplacedThisWithThat.add(new Double(0));
-//				}
-//			}
-//		}
 
 		for (int i=0 ; i < modelHasReplaced.size() ; i++) {
 			for (int j=0 ; j < rtL.size() ; j ++) {
@@ -159,10 +152,9 @@ public class Unit {
 	}
 	
 	private void clearReplacementCounters() {
-		modelHasReplaced.clear();
-		modelHasReplacedThis.clear();
-		modelHasReplacedWithThat.clear();
-		modelHasReplacedThisWithThat.clear();	
+		for (Dbl d : modelHasReplacedThisWithThat) {
+			d.setValue(0);
+		}
 	}
 	
 	public int setWeaponByCombinationNumber(int modelNum, int weaponNum, Formation formation) {
@@ -247,6 +239,17 @@ public class Unit {
 				}
 			}
 		}		
+	}
+	
+	private int findIndexOfUnitReplacementCounts(Model model, int modelReplacementIndex) {
+		List<String> rtL = model.getReplaceThis();
+		List<String> wtL = model.getWithThat();
+		for (int i=0 ; i < modelHasReplaced.size() ; i++) {
+			if ((model.getName().equals(modelHasReplaced.get(i))) && (modelHasReplacedThis.get(i).equals(rtL.get(modelReplacementIndex))) && (modelHasReplacedWithThat.get(i).equals(wtL.get(modelReplacementIndex)))) {
+				return i;
+			}
+		}	
+		return -1;
 	}
 	
 	public void finalize() {

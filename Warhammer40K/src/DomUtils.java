@@ -369,21 +369,14 @@ public class DomUtils {
 			  for (int j = 0; j < combinations; j++) {
 				  if (i == 0) {
 					  Unit clone = new Unit(unit);
-					  //Unit clone = new Unit(unit.getUnitName());
-					  //for (Model m : unit.getModelList()) {
-					//	  clone.addModel(m);
-					 // }
 					  unitList.add(clone);
 				  }
 				  nextWeaponNum = unitList.get(j).setWeaponByCombinationNumber(i,weaponNum,army.getFormation(0));
 				  increment = increment + 1;
 				  if (increment >= stepSize) {
-					  weaponNum = weaponNum + 1;
+					  if (weaponNum >= numChoices) numChoices = weaponNum+1;
+					  weaponNum = nextWeaponNum;
 					  increment = 0;
-				  }
-				  if (nextWeaponNum == 0 && increment == 0) {
-					  numChoices = weaponNum;
-					  weaponNum = 0;
 				  }
 			  }
 			  stepSize = stepSize * numChoices;
