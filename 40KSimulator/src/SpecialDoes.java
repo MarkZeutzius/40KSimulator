@@ -1,0 +1,28 @@
+
+public enum SpecialDoes {
+	advance2d6,
+	auto,
+	auto2p,
+	ap3,
+	ap4,
+	mortal1,
+	mortal1demon,
+	mortalD3,
+	invul3p,
+	invul4p,
+	invul5p,
+	invul6p,
+	invul5pUnit,
+	roll2PickHigher,
+	reroll,
+	incrementApWoundBy1,
+	m1,
+	m1Hit,
+	p1,
+	s6,
+	s8,
+	opponentHitM1,
+	x3,
+	noHeavyPenalty,
+	fnp6p;
+}

@@ -1,0 +1,25 @@
+
+public enum SpecialOn {
+	advance,
+	all,
+	attack,
+	miss,
+	miss1m,
+	charge,
+	hit,
+	hit5p,
+	hit6p,
+	failWound,
+	failWound1m,
+	failedWoundVehicle,
+	opponentsAttack,
+	wound,
+	wound5p,
+	wound6p,
+	wound2pExceptVehicle,
+	damage,
+	damageHalfRange,
+	defend,
+	slay,
+	targetSame;
+}
