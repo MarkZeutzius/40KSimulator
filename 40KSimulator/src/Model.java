@@ -25,14 +25,25 @@ public class Model {
 	private List<String> withThat = new ArrayList<String>();
 	private List<Dbl> howManyReplacements = new ArrayList<Dbl>();
 	private double woundsRemaining;
+	private double damageTaken;
 	
 	Model(){}
 	
 	Model(Model m) {
-		this(m.getName(),m.getMove(),m.getWeaponSkill(),m.getBallisticSkill(),m.getStrength(),m.getToughness(),m.getWounds(),m.getAttacks(),m.getLeadership(),m.getArmorSave(),m.getPointsPerModel(),m.getWeapons(),m.getModelSpecials(),m.getReplaceThis(),m.getWithThat(),m.getHowManyReplacements());
+		this(m.getName(),m.getMove(),m.getWeaponSkill(),m.getBallisticSkill(),m.getStrength(),m.getToughness(),m.getWounds(),m.getAttacks(),m.getLeadership(),m.getArmorSave(),m.getPointsPerModel(),m.getModelSpecials(),m.getReplaceThis(),m.getWithThat(),m.getHowManyReplacements());
+		this.invulSave = m.getInvulSave();
+		this.modelCost = m.getModelCost();
+		for (Weapon w : m.getWeapons()) {
+			Weapon nW = new Weapon(w);
+			this.weapons.add(nW);
+		}
 	}
 	
 	Model(String name, int move, int weaponSkill, int ballisticSkill, int strength, int toughness, int wounds, int attacks, int leadership, int armorSave, int pointsPerModel, List<Weapon> weapons, List<SpecialAbilities> modelSpecials, List<String> replaceThis, List<String> withThat, List<Dbl> howManyReplacements){
+		this(name,move,weaponSkill,ballisticSkill,strength,toughness,wounds,attacks,leadership,armorSave,pointsPerModel,modelSpecials,replaceThis,withThat,howManyReplacements);
+		this.weapons = weapons;
+	}
+	Model(String name, int move, int weaponSkill, int ballisticSkill, int strength, int toughness, int wounds, int attacks, int leadership, int armorSave, int pointsPerModel, List<SpecialAbilities> modelSpecials, List<String> replaceThis, List<String> withThat, List<Dbl> howManyReplacements){
 		this.name=name;
 		this.move=move;
 		this.weaponSkill=weaponSkill;
@@ -44,7 +55,6 @@ public class Model {
 		this.leadership=leadership;
 		this.armorSave=armorSave;
 		this.pointsPerModel=pointsPerModel;
-		this.weapons=weapons;
 		this.modelSpecials=modelSpecials;
 		this.replaceThis=replaceThis;
 		this.withThat=withThat;
@@ -161,7 +171,10 @@ public class Model {
 	}
 
 	public void setInvulSave(int invulSave) {
-		if (invulSave < this.invulSave) {
+		if (this.invulSave == 0) {
+			this.invulSave = invulSave;
+		}
+		else if (invulSave < this.invulSave) {
 			this.invulSave = invulSave;
 		}
 	}
@@ -254,6 +267,9 @@ public class Model {
 				modelName.append(" w "+w);
 			}
 		}
+		for (Wargear wg : wargear) {
+			modelName.append(" & "+wg.getWargearName());
+		}
 		name=modelName.toString();
 	}
 	
@@ -312,13 +328,25 @@ public class Model {
 	}
 	
 	public void takeDamage(double damage) {
-		woundsRemaining = woundsRemaining - damage;
+		damageTaken = damageTaken + damage;
+	}
+	
+	public void setWoundsRemaining(double wr) {
+		woundsRemaining = wr;
 	}
 	
 	public double getWoundsRemaining() {
 		return woundsRemaining;
 	}
 	
+	public double getDamageTaken() {
+		return damageTaken;
+	}
+
+	public void setDamageTaken(double damageTaken) {
+		this.damageTaken = damageTaken;
+	}
+
 	public String toString() {
 		return name+"\n";
 	}

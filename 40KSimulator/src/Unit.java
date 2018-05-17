@@ -11,15 +11,6 @@ public class Unit {
 	List<Model> modelList = new ArrayList<Model>();
 	int unitCost;
 	float costPerModel;
-	
-	public int getUnitCost() {
-		return unitCost;
-	}
-
-	public void setUnitCost(int unitCost) {
-		this.unitCost = unitCost;
-	}
-
 	String preferredCombatMode="shooting";
 	
 	private List<String> modelHasReplaced = new ArrayList<String>();
@@ -33,18 +24,13 @@ public class Unit {
 		this.unitName=unitName;
 	}
 	
-	public String getPreferredCombatMode() {
-		return preferredCombatMode;
-	}
-
-	public void setPreferredCombatMode(String preferredCombatMode) {
-		this.preferredCombatMode = preferredCombatMode;
-	}
-
 	Unit(Unit u) {
 		  this.unitName = u.getUnitName();
+		  this.unitCost = u.getUnitCost();
+		  this.costPerModel = u.getCostPerModel();
 		  for (Model m : u.getModelList()) {
-			  this.addModel(m);
+			  Model nM = new Model(m);
+			  this.modelList.add(nM);
 		  }
 	}
 	
@@ -53,23 +39,39 @@ public class Unit {
 		this.modelList=modelList;
 	}
 	
-	void addModel(Model m) {
-		List<Weapon> weapons = new ArrayList<Weapon>(m.getWeapons());
-		List<Weapon> clone = new ArrayList<Weapon>();
-		for (Weapon w : weapons) {
-			Weapon weapon = new Weapon(w.getWeaponName(),w.getRange(),w.getType(),w.getShots(),w.getStrength(),w.getArmorPenetration(),w.getDamage(),w.getPointsPerWeapon(),w.getWeaponSpecials(),w.getFiringMode(),w.getExtraFiringModes());
-			//Weapon weapon = new Weapon(w);  
-			//weapon.setFiringMode(w.getFiringMode());
-			//weapon.setExtraFiringModes(w.getExtraFiringModes());
-			clone.add(weapon);
-		}
-		Model modelToAdd = new Model(m.getName(),m.getMove(),m.getWeaponSkill(),m.getBallisticSkill(),m.getStrength(),m.getToughness(),m.getWounds(),m.getAttacks(),m.getLeadership(),m.getArmorSave(),m.getPointsPerModel(),clone,m.getModelSpecials(),m.getReplaceThis(),m.getWithThat(),m.getHowManyReplacements());
-		modelList.add(modelToAdd);
+	
+	public int getUnitCost() {
+		return unitCost;
+	}
+
+	public void setUnitCost(int unitCost) {
+		this.unitCost = unitCost;
+	}
+	
+	public float getCostPerModel() {
+		return costPerModel;
+	}
+
+	public void setCostPerModel(float costPerModel) {
+		this.costPerModel = costPerModel;
+	}
+
+	public void setUnitName(String unitName) {
+		this.unitName = unitName;
+	}
+
+	public String getPreferredCombatMode() {
+		return preferredCombatMode;
+	}
+
+	public void setPreferredCombatMode(String preferredCombatMode) {
+		this.preferredCombatMode = preferredCombatMode;
 	}
 	
 	void addModelCount(int count, Model m) {
 		for (int i=0 ; i < count ; i++) {
-			addModel(m);
+			Model nM = new Model(m);
+			this.modelList.add(nM);
 		}
 	}
 	
@@ -122,30 +124,36 @@ public class Unit {
 		for (Model model : modelList) {
 			List<String> rtL = model.getReplaceThis();
 			List<String> wtL = model.getWithThat();
-			List<Dbl> mrL = model.getHowManyReplacements();
+			List<String> alreadyReplaced = new ArrayList<String>();
+			//List<Dbl> mrL = model.getHowManyReplacements();
 			//If this model/weapon combo has not been attempted before add it to the list of all mode/weapon combo attempts
 			//But use a temporary replacement counter because the unit being used here is a template for other units.
 			updateUnitModelReplacementLists(model);
 
-			boolean validReplacement=true;
-			int num = 1;
-			for (int i=0 ; i < rtL.size() ; i++) {			
+			int modelTotal = 1;
+			for (int i=0 ; i < rtL.size() ; i++) {	
+				boolean validReplacement=true;
+				boolean add=false;
 				String[] parts = rtL.get(i).split("AND");
 				for (int j=0 ; j<parts.length ; j++) {
-					String r = parts[j].trim();
-					if (!model.hasWeapon(r)) validReplacement=false;
+					parts[j] = parts[j].trim();
+					if (!model.hasWeapon(parts[j])) {
+						validReplacement=false;
+					} else if (alreadyReplaced.contains(parts[j])) {
+						add=true;
+					}
 				}
 				if (validReplacement && isReplacementAllowed(model)) {
 					String[] p = wtL.get(i).split(",");
-					//Change here so that num only increases if there are replacement slots left
-					//int replacementIndex = findIndexOfUnitReplacementCounts(model, i);
-					//if (mrL.get(i).getValue()==0 || modelHasReplacedThisWithThat.get(replacementIndex).getValue() < mrL.get(i).getValue()) {
-						num += p.length;
-						product = product * num;
-						//break;
-					//}
+					if (!add) {
+						modelTotal = modelTotal * (p.length +1);
+					} else {
+						modelTotal = modelTotal + p.length;
+					}
+					alreadyReplaced.addAll(Arrays.asList(parts));
 				}
 			}
+			product *= modelTotal;
 		}
 		clearReplacementCounters();
 		return product;
@@ -210,7 +218,7 @@ public class Unit {
 									
 								}
 								modelHasReplacedThisWithThat.get(i).addOne();
-								if (weaponNum < countReplaceWithThat ) {
+								if ((i < modelHasReplaced.size()-1) || (weaponNum < countReplaceWithThat )) {
 									return weaponNum+1;
 								} else {
 									return 0;
@@ -305,6 +313,14 @@ public class Unit {
 		unitName.deleteCharAt(unitName.lastIndexOf(";"));
 		this.unitName=unitName.toString();
 		costPerModel = unitCost/modelList.size();
+	}
+	
+	public int countModelsByName(String modelName) {
+		int counter = 0;
+		for (Model m : modelList) {
+			if (m.getName().startsWith(modelName)) counter ++;
+		}
+		return counter;
 	}
 	
 	public String toString() {

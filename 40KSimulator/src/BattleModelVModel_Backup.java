@@ -4,7 +4,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BattleModelVModel {
+public class BattleModelVModel_Backup {
 	
 	List<Model> attackerModelList = new ArrayList<Model>();
 	List<Model> defenderModelList = new ArrayList<Model>();
@@ -17,9 +17,9 @@ public class BattleModelVModel {
 	boolean aMoved = false;
 	boolean dMoved = false;
 
-	BattleModelVModel(){}
+	BattleModelVModel_Backup(){}
 	
-	BattleModelVModel(Army attacker, Army defender){
+	BattleModelVModel_Backup(Army attacker, Army defender){
 		attackerArmy = attacker;
 		defenderArmy = defender;
 	}
@@ -246,10 +246,12 @@ public class BattleModelVModel {
 						range = moveUnit(range,aUnit,minAttackerMove,maxAttackerRange,minAttackerRange,dUnit,minDefenderMove,maxDefenderRange,minDefenderRange);
 						//Shoot phase, both the attacker and defender will shoot all weapons simultaneously.
 						//Damage will be assigned to the model in the unit that causes the least amount of financial damage.
-						defenderResid=fightUnitVUnit(aUnit,dUnit,range,scale,aRan,aMoved);
-						attackerResid=fightUnitVUnit(dUnit,aUnit,range,1.0/scale,dRan,dMoved);			
-						assessDamage(aUnit);
-						assessDamage(dUnit);
+						fightUnitVUnit(aUnit,dUnit,range,scale,aRan,aMoved);
+						fightUnitVUnit(dUnit,aUnit,range,1.0/scale,dRan,aMoved);
+						attackerResid = -aUnit.getModelList().get(0).getWoundsRemaining();
+						defenderResid = -dUnit.getModelList().get(0).getWoundsRemaining();						
+						removeCasaulties(aUnit);
+						removeCasaulties(dUnit);
 						if ((aUnit.getModelCount() <= 0) && (dUnit.getModelCount() <= 0)) {
 							survivors = false;
 							if ((upperScale-lowerScale)/(0.5*(upperScale+lowerScale))<0.00001) {
@@ -372,9 +374,9 @@ public class BattleModelVModel {
 	}
 	
 
-	private double fightUnitVUnit(Unit aUnit, Unit dUnit, double range, double scale, boolean ran, boolean moved) {
+	private void fightUnitVUnit(Unit aUnit, Unit dUnit, double range, double scale, boolean ran, boolean moved) {
 		Rules rules = new Rules();
-		double damageBuffer=0;
+		//double residualDamage=0;
 
 		int aSkip=aUnit.countModelsByName("Heavy Weapon Platform");
 
@@ -389,21 +391,21 @@ public class BattleModelVModel {
 					int counter = 0;
 					if (aSkip > 0) {
 						aSkip --;
-					} else {	
+					} else {
+						
 						for (Model dModel : dUnit.getModelList()) {
-							if (dModel.getWoundsRemaining()-dModel.getDamageTaken() > 0) {
+							if (dModel.getWoundsRemaining() > 0) {
 								double damage = 0;
 								if (range <= aWeapon.getRangeInt()) {
-									damage = rules.fight(aModel, aWeapon, dModel,range,ran,moved);
+									damage = rules.fight(aModel, aWeapon, dModel,range,ran,moved) * scale;
 								}
 								for (Weapon w : aWeapon.getExtraFiringModes()) {
 									if ( range <= w.getRangeInt()) {
-										double modeDamage = rules.fight(aModel, w, dModel,range,ran,moved);
+										double modeDamage = rules.fight(aModel, w, dModel,range,ran,moved) * scale;
 										if (modeDamage > damage) damage = modeDamage;
 									}
 								}
-								damage = damage * scale * aModel.getWoundsRemaining()/((double)aModel.getWounds());
-								double economicDamage = dModel.getModelCost()*damage/dModel.getWounds();
+								double economicDamage = dModel.getModelCost()*damage;
 								if (economicDamage < lowestEconomicDamage) {
 									lowestEconomicDamage = economicDamage;
 									bestTarget = counter;
@@ -412,39 +414,21 @@ public class BattleModelVModel {
 							}
 							counter++;
 						}
-						//A model will take damage until it gets to 0 woulds left and the rest will roll over to the next model.
-						damageBuffer = damageBuffer + bestDamage;
-						if (damageBuffer > (dUnit.getModel(bestTarget).getWoundsRemaining()-dUnit.getModel(bestTarget).getDamageTaken())) {
-							damageBuffer = damageBuffer-(dUnit.getModel(bestTarget).getWoundsRemaining()-dUnit.getModel(bestTarget).getDamageTaken());
-							dUnit.getModel(bestTarget).setDamageTaken(dUnit.getModel(bestTarget).getWoundsRemaining());
-						} else {
-							dUnit.getModel(bestTarget).takeDamage(damageBuffer);
-							damageBuffer = 0.0;
-						}
+						//Residual damage was tried to see if not taking it into account was causing small units to differ from big units.
+						//bestDamage=bestDamage+residualDamage;
+						//if (bestDamage>dUnit.getModel(bestTarget).getWoundsRemaining()) {
+						//	residualDamage=bestDamage-dUnit.getModel(bestTarget).getWoundsRemaining();
+						//} else {
+						//	residualDamage=0;
+						//}
+						dUnit.getModel(bestTarget).takeDamage(bestDamage);
 					}
 				}
 			}
 		}
-		//If the last model to fire has residual damage, apply it to the next model in the list.
-		if (damageBuffer > 0) {
-			for (Model dModel : dUnit.getModelList()) {
-				if (damageBuffer > (dModel.getWoundsRemaining()-dModel.getDamageTaken())) {
-					damageBuffer = damageBuffer-(dModel.getWoundsRemaining()-dModel.getDamageTaken());
-					dModel.setDamageTaken(dModel.getWoundsRemaining());
-				} else {
-					dModel.takeDamage(damageBuffer);
-					damageBuffer = 0.0;
-				}
-			}
-		}
-		return damageBuffer;	
 	}
 	
-	private void assessDamage(Unit unit) {
-		for (Model m : unit.getModelList()) {
-			m.setWoundsRemaining(m.getWoundsRemaining()-m.getDamageTaken());
-			m.setDamageTaken(0);
-		}
+	private void removeCasaulties(Unit unit) {
 		int numModels = unit.getModelCount();
 		for (int i=numModels-1 ; i>=0 ; i--) {
 			if (unit.getModel(i).getWoundsRemaining() <= 0) {

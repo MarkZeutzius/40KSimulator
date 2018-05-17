@@ -32,6 +32,8 @@ public class Rules {
 	double resultsSpecial = 0;
 	int weaponNum = 0;
 	double range=0;
+	boolean ran=false;
+	boolean moved=false;
 	
 	Rules(){}
 	
@@ -41,6 +43,17 @@ public class Rules {
 	
 	double fight(Model attacker, int weaponNum, Model defender) {
 		return fight(attacker, attacker.getWeapon(weaponNum), defender, 1.0);
+	}
+	
+	double fight(Model attacker, Weapon weapon, Model defender,double range, boolean ran, boolean moved) {
+		this.ran=ran;
+		this.moved=moved;
+		this.attacker=attacker;
+		this.defender=defender;
+		this.aWeapon=weapon;
+		this.range=range;
+		modelAndWeaponSpecials = new ArrayList<SpecialAbilities>(attacker.getSpecials(weapon));
+		return calculateDps();
 	}
 	
 	double fight(Model attacker, Weapon weapon, Model defender,double range) {
@@ -77,7 +90,20 @@ public class Rules {
 	}
 	
 	double hitChance() {
-		return (7.0-(double)attacker.getBallisticSkill())/6.0;
+		double hitChance = (7.0-(double)attacker.getBallisticSkill())/6.0;
+		for (SpecialAbilities sA : modelAndWeaponSpecials) {
+			if (sA.specialOn == SpecialOn.miss1m) {
+				hitChance = ONE_SIX*hitChance + hitChance;
+			}
+		}
+		if (ran) {
+			if (aWeapon.getType().equals("assault")) hitChance = hitChance - ONE_SIX;
+			if (aWeapon.getType().equals("rapid fire")) hitChance = 0;
+			if (aWeapon.getType().equals("heavy")) hitChance = 0;
+		} else if (moved) {
+			if (aWeapon.getType().equals("heavy")) hitChance = hitChance - ONE_SIX;
+		}
+		return hitChance;
 	}
 	
 	double woundChance() {
@@ -143,6 +169,12 @@ public class Rules {
 		if ((numberOfSides == 1 ) && (numberOfDice == 1)) {
 			if (dpa > defender.getWounds()) {
 				dpa = defender.getWounds();
+			} else if (dpa > 1) {
+				int remainder = defender.getWounds() % (int)dpa;
+				if (remainder > 0 ) {
+					int numOfWoundsToKill = (int)(defender.getWounds()/dpa);
+					dpa = dpa*defender.getWounds()/(dpa*(numOfWoundsToKill+remainder));
+				}
 			}
 		//If damage is a dice roll
 		} else {

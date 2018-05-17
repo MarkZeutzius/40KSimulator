@@ -234,10 +234,10 @@ public class DomUtils {
 						    
 						  if (allUnitCombinations.size() == 0) {
 							  Unit unitMin = new Unit(unitName);
-							  Unit unitMax = new Unit(unitName);
 							  unitMin.addModelCount(minNum, newModel);
-							  unitMax.addModelCount(maxNum, newModel);
 				  			  allUnitCombinations.add(unitMin);
+							  Unit unitMax = new Unit(unitName);
+							  unitMax.addModelCount(maxNum, newModel);
 					  		  allUnitCombinations.add(unitMax);
 						  } else {
 							  int size = allUnitCombinations.size();
@@ -319,9 +319,19 @@ public class DomUtils {
 		  unitList.add(unit);
 	  }
 	  
-	  for (Unit u : unitList ) {
+	  for (Unit u : unitList) {
 		  u.finalize();
 	  }
+	  
+	  //The combinations algorithm above can generate units that are the same (I couldn't figure out how to do a permutaitons algorithm)
+	  //Search for duplicate units and remove them.
+	  for (int i = unitList.size() ; i > 1 ; i--) {
+		  String unitName = unitList.get(i-1).getUnitName();
+		  for (int j = i-1 ; j > 0; j--) {
+			  if (unitList.get(j-1).getUnitName().equals(unitName)) unitList.remove(i-1);
+		  }
+	  }
+
 	  return unitList;
   }
 

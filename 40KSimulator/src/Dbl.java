@@ -6,6 +6,10 @@ public class Dbl {
 		this.value=value;
 	}
 	
+	Dbl(double value) {
+		this.value=value;
+	}
+	
 	Dbl(String value) {
 		if (value == null || value=="") {
 			this.value = 0;

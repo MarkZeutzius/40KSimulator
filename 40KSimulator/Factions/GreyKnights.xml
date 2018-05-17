@@ -57,7 +57,7 @@
 			<equippedWeapon weaponName="Psyk-Out Grenade"></equippedWeapon>
 		</model>
 		<model modelName="Justicar" minNum="1" maxNum="1">
-			<move>5</move>
+			<move>6</move>
 			<ws>3</ws>
 			<bs>3</bs>
 			<strength>4</strength>
